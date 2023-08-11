@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# create folders
+mkdir sysA
+mkdir sysB
+
+# Generate Asymmetric Keys 
+openssl genpkey -algorithm RSA -out A_private.pem
+openssl rsa -pubout -in A_private.pem -out A_public.pem
+openssl genpkey -algorithm RSA -out B_private.pem
+openssl rsa -pubout -in B_private.pem -out B_public.pem
+
+# Generate data and Symmetric Key
+dataA="Hello from systemA"
+dataB="Hello from systemB"
+sysmmetrickeys="kali"
+
+echo "$dataA" | openssl enc -aes-256-cbc -k "$symmetrickeys" -out encryptedA.enc
+echo "$dataB" | openssl enc -aes-256-cbc -k "$symmetrickeys" -out encryptedB.enc
+
+# Exchange public keys
+cp B_public.pem sysA
+cp A_public.pem sysB
+
+# Generate Digital Signatures
+openssl dgst -sha256 -sign A_Private.pem -out SignatureA.sha encryptedA.enc
+openssl dgst -sha256 -sign B_Private.pem -out SignatureB.sha encryptedB.enc
+
+# Decrypt Data
+# System A decrypts systemB's data
+openssl enc -aes-256-cbc -d -k "$symmetricKeys" -in encryptedB.enc -out decryptedB.txt
+openssl dgst -sha256 -verify B_Public.pem -signature SignatureB.sha encryptedB.enc
+
+# System B decrypts systemA's data
+openssl enc -aes-256-cbc -d -k "$symmetricKeys" -in encryptedA.enc -out decryptedA.txt
+openssl dgst -sha256 -verify A_Public.pem -signature SignatureA.sha encryptedA.enc
+
+echo "Decrypted Data from systemA: $(cat decryptedA.txt)"
+echo "Decrypted Data from systemB: $(cat decryptedB.txt)"
