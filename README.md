@@ -1,5 +1,5 @@
 # Publickey_encryption
-In this practical scenario, students are tasked with demonstrating public key encryption, security, and digital signatures.
+In this practical scenario, i was asked with demonstrating public key encryption, security, and digital signatures.
 The exercise involves two systems, each containing two folders.
 Initially, asymmetric key pairs are generated for both entities along with sample data for encryption using symmetric keys. 
 The public keys are exchanged between the systems.
