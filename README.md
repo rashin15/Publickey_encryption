@@ -6,5 +6,4 @@ The public keys are exchanged between the systems.
 Digital signatures are then generated for both entities, adding an extra layer of security to the data. 
 Subsequently, the encrypted data is sent and decrypted. 
 To automate the process, a bash script is created, showcasing the entire encryption and decryption sequence. 
-The script is stored in a GitHub repository. 
-In conclusion, students successfully execute a comprehensive encryption scenario, encompassing key generation, data encryption, digital signatures, and automation using a bash script.
+In conclusion, i had successfully execute a comprehensive encryption scenario, encompassing key generation, data encryption, digital signatures, and automation using a bash script.
